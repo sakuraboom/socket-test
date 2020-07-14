@@ -26,7 +26,7 @@ int main (int argc, char **argv) {
         exit (1);
     }
 
-    char buff[512];
+    char buff[512] = {0};
     recv (sockfd, buff, sizeof (buff), 0);
     printf ("Recv from client : %s\n", buff);
     send (sockfd, buff, strlen (buff), 0);
