@@ -10,6 +10,6 @@
 #ifndef _COMMON_H
 #define _COMMON_H
 
-int create_socket ();
+int socket_create (int ip);
 
 #endif

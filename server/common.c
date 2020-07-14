@@ -12,9 +12,13 @@
 int socket_create (int ip) {
     int sockfd;
     if ((sockfd = socket (AF_INET, SOCK_STREAM, 0)) < 0) return -1;
-    
+
     struct sockaddr_in server;
     server.sin_family = AF_INET;
     server.sin_port = htons (ip);
-    server.sin_addr = ;
+    server.sin_addr.s_addr = htonl (INADDR_ANY);
+
+    if ((bind (sockfd, (struct sockaddr *)&server, sizeof (server))) < 0) return -1;
+    if ((listen (sockfd, 10)) < 0) return -1;
+    return sockfd;
 }

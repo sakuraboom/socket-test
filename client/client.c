@@ -40,12 +40,6 @@ int main (int argc, char **argv) {
         exit (1);
     }
 
-        /* char buff[512] = {0}; */
-        /* recv (sockfd, buff, sizeof(buff), 0); */
-        /* int ant = (int)(buff[0]); */
-        /* printf ("Recv from Server : %d\n", ant); */
-        /* close (sockfd); */
-
     while (1) {
         int flag= 0, ant;
         char buff[512] = {0};
