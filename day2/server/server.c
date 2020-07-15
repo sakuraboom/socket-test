@@ -33,9 +33,8 @@ int main (int argc, char **argv) {
     }
     
     long long sum, nwrite = 0;
-    char buff[M];
     recv (sockfd, (char *)&sum, sizeof (sum), 0);
-    printf ("%ld\n", sum);
+    printf ("%lld\n", sum);
     
     while (1) {
         if (nwrite == sum) {
