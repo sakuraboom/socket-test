@@ -3,16 +3,13 @@
 #     > File Name   :  Makefile
 #     > Author      :  spike
 #     > Email       :  Gehirn@yeah.net
-#     > Create time :  CST 15:32:21 2020/07/15 三
+#     > Create time :  CST 16:32:39 2020/07/15 三
 #     > Comment     :
 # *****************************************************
 
-make : ./server.c ./common.c
-	g++ server.c common.c -o server
-
-open :
-	vim ./server.c
+make :
+	g++ ./test.c
 
 run :
-	./server 8888
+	./a.out 123.57.102.65 9004
 

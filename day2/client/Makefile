@@ -10,4 +10,8 @@
 make : 
 	g++ client.c ../server/common.c -o client
 
+open :
+	vim ./client.c
 
+run :
+	./client 127.0.0.1 8888 

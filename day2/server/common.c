@@ -33,7 +33,7 @@ int socket_connect (char *ip, int port) {
     print_error (sockfd = socket (AF_INET, SOCK_STREAM, 0), 0, socket())
     struct sockaddr_in client;
     client.sin_family = AF_INET;
-    client.sin_port = port;
+    client.sin_port = htons (port);
     client.sin_addr.s_addr = inet_addr (ip);
     print_error (connect (sockfd, (struct sockaddr *)&client, sizeof (client)), 0, connet ())
     return sockfd;

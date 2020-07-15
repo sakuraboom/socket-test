@@ -18,16 +18,31 @@ int main (int argc, char **argv) {
 
     int port, sockfd;
     char ip[20];
+    FILE *fp;
     strcpy (ip, argv[1]);
     port = atoi (argv[2]);
     
     if ((sockfd = socket_connect (ip, port)) < 0) {
-        perror ("socket_connect ()");
+        perror ("socket_connect ()\n");
+        exit (1);
+    }
+        
+    if ((fp = fopen ("./Makefile", "r")) == NULL) {
+        perror ("fopen ()\n");
         exit (1);
     }
 
-    char buff[M] = "hello";
-    send (sockfd, buff, strlen (buff), 0);
+    size_t size;
+    char buff[M + 5] = {0};
+    long long sum = 10000000;
+    
+    send (sockfd, (char *)&sum, sizeof (sum), 0);
+    /* while ((size = fread (buff, 1, 1024, fp))) { */
+    /*     send (sockfd, buff, size, 0); */
+    /*     bzero (buff, sizeof (buff)); */
+    /* } */
+
+    fclose (fp);
     close (sockfd);
     return 0;
 }

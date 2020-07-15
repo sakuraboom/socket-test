@@ -8,14 +8,15 @@
 **********************************************************/
 
 #include "../head.h"
-
+#define M 1024
 int main (int argc, char **argv) {
     if (argc != 2) {
         fprintf (stderr, "Error occurs in file : %s\n", argv[0]);
         exit (1);
     }
     int server_listen, sockfd;
-    
+    FILE *fp;
+
     if ((server_listen = socket_create (atoi (argv[1]))) < 0) {
         perror ("Error occurs in : socket_create ()");
         exit (1);
@@ -25,11 +26,28 @@ int main (int argc, char **argv) {
         perror ("Error occurs in : accept ()");
         exit (1);
     }
-
-    char buff[512] = {0};
-    recv (sockfd, buff, sizeof (buff), 0);
-    printf ("Recv from client : %s\n", buff);
-    /* send (sockfd, buff, strlen (buff), 0); */
+    
+    if ((fp = fopen ("tmp.txt", "w")) == NULL) {
+        perror ("Error occurs in : fopen ()");
+        exit(1);
+    }
+    
+    long long sum, nwrite = 0;
+    char buff[M];
+    recv (sockfd, (char *)&sum, sizeof (sum), 0);
+    printf ("%ld\n", sum);
+    
+    while (1) {
+        if (nwrite == sum) {
+            break;
+        }
+        char buff[M + 5] = {0};
+        int rp = recv (sockfd, buff, 1024, 0);
+        if (rp <= 0) break;
+        nwrite += fwrite (buff, 1, 1024, fp); 
+    }
+    
+    fclose (fp);
     close (sockfd);
     close (server_listen);
     return 0;
