@@ -36,7 +36,6 @@ int main (int argc, char **argv) {
     
     char buff[512] = {0};
     scanf ("%s", buff);
-
     send (sockfd, buff, strlen (buff), 0);
     memset (buff, 0, sizeof (buff));
     recv (sockfd, buff, sizeof (buff), 0);
