@@ -33,17 +33,19 @@ int main (int argc, char **argv) {
     }
     
     long long sum, nwrite = 0;
-    recv (sockfd, (char *)&sum, sizeof (sum), 0);
+    recv (sockfd, &sum, sizeof (sum), 0);
     printf ("%lld\n", sum);
     
     while (1) {
-        if (nwrite == sum) {
+        if (nwrite >= sum) {
             break;
         }
         char buff[M + 5] = {0};
         int rp = recv (sockfd, buff, 1024, 0);
         if (rp <= 0) break;
-        nwrite += fwrite (buff, 1, 1024, fp); 
+        nwrite += rp;
+        fwrite (buff, 1, rp, fp);
+        printf ("%lld\n", nwrite);
     }
     
     fclose (fp);

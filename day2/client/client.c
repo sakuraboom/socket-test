@@ -27,20 +27,18 @@ int main (int argc, char **argv) {
         exit (1);
     }
         
-    if ((fp = fopen ("./Makefile", "r")) == NULL) {
+    if ((fp = fopen ("../server/tmp.txt", "r")) == NULL) {
         perror ("fopen ()\n");
         exit (1);
     }
 
     size_t size;
     char buff[M + 5] = {0};
-    long long sum = 10000000;
-    
-    send (sockfd, (char *)&sum, sizeof (sum), 0);
-    /* while ((size = fread (buff, 1, 1024, fp))) { */
-    /*     send (sockfd, buff, size, 0); */
-    /*     bzero (buff, sizeof (buff)); */
-    /* } */
+    while ((size = fread (buff, 1, 1024, fp))) {
+        send (sockfd, buff, size, 0);
+        printf ("%s\n", buff);
+        bzero (buff, sizeof (buff));
+    }
 
     fclose (fp);
     close (sockfd);
