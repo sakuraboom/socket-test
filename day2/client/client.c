@@ -19,6 +19,8 @@ int main (int argc, char **argv) {
     int port, sockfd;
     char ip[20];
     FILE *fp;
+    uint64_t len = 100; 
+
     strcpy (ip, argv[1]);
     port = atoi (argv[2]);
     
@@ -27,13 +29,15 @@ int main (int argc, char **argv) {
         exit (1);
     }
         
-    if ((fp = fopen ("../server/tmp.txt", "r")) == NULL) {
+    if ((fp = fopen ("./Makefile", "r")) == NULL) {
         perror ("fopen ()\n");
         exit (1);
     }
-
+    
     size_t size;
     char buff[M + 5] = {0};
+    
+    send (sockfd, &len, sizeof (uint64_t), 0);
     while ((size = fread (buff, 1, 1024, fp))) {
         send (sockfd, buff, size, 0);
         printf ("%s\n", buff);

@@ -32,9 +32,9 @@ int main (int argc, char **argv) {
         exit(1);
     }
     
-    long long sum, nwrite = 0;
+    uint64_t sum, nwrite = 0;
     recv (sockfd, &sum, sizeof (sum), 0);
-    printf ("%lld\n", sum);
+    printf ("%ld\n", sum);
     
     while (1) {
         if (nwrite >= sum) {
@@ -45,7 +45,7 @@ int main (int argc, char **argv) {
         if (rp <= 0) break;
         nwrite += rp;
         fwrite (buff, 1, rp, fp);
-        printf ("%lld\n", nwrite);
+        printf ("%ld\n", nwrite);
     }
     
     fclose (fp);
@@ -53,3 +53,5 @@ int main (int argc, char **argv) {
     close (server_listen);
     return 0;
 }
+
+
