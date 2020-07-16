@@ -37,4 +37,5 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/epoll.h>
+#include "server_thread_multi/common.h"
 #endif
