@@ -13,7 +13,7 @@ if [ ${#1} -ne 0 ]; then
     if [ $confirm ];then
         if [ $confirm = "y" ] || [ $confirm = "Y" ];then
             git add .
-            git commit -m {$1}
+            git commit -m $1
             git push
         fi
     fi
