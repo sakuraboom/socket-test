@@ -60,6 +60,7 @@ int main (int argc, char **argv) {
             
             if (sockfd > client_n) {
                 fprintf (stderr, "Too many clients !\n");
+                close (sockfd);
             } else {
                 if (clients[sockfd] == -1) {
                     clients[sockfd] = sockfd; 
@@ -71,13 +72,13 @@ int main (int argc, char **argv) {
             if (clients[i] == server_listen || clients[i] < 0) continue;
             if (FD_ISSET (clients[i], &rfds)) {
                 char buff[512] = {0};
-                int len = recv (sockfd, buff, sizeof (buff), 0);
+                int len = recv (clients[i], buff, sizeof (buff), 0);
                 if (len <= 0) {
                     close (clients[i]);
                     clients[i] = -1;
                 }
                 printf ("Recv from client : %s\n", buff);
-                send (sockfd, buff, strlen (buff), 0);
+                send (clients[i], buff, strlen (buff), 0);
             }
         }
     }
